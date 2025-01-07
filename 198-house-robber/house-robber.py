@@ -4,20 +4,21 @@ class Solution:
         -- Each possible house have two options, either we steal it or we skip it
         """
         N = len(nums)
-        dp = [-1] * N
+        # dp[i] = max amount after stealing till ith house
+        # len(dp) = N + 1
+        dp = [-1] * (N + 1)
+        
+        dp[0] = 0
+        dp[1] = nums[0]
 
-        def solve(indx):
-            if indx >= N:
-                return 0
+        for i in range(2, N+1):
+            # if we teal the ith house, the max amount robbed
+            # would be max amount till the last house + the amount of current house 
+            # amount of current house is nums[i-1]
+            steal = nums[i-1] + dp[i-2]
 
-            if dp[indx] != -1:
-                return dp[indx]
+            # If we skip the total/max would be the amount robbed till the last house
+            skip = dp[i-1]
 
-            steal = nums[indx] + solve(indx + 2)
-            skip = solve(indx + 1)
-
-            dp[indx] = max(steal, skip)
-            return dp[indx]
-
-        output = solve(0)
-        return output
+            dp[i] = max(steal, skip)
+        return dp[N]
