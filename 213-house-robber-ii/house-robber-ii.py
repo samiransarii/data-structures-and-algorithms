@@ -5,26 +5,29 @@ class Solution:
         if N == 1:
             return nums[0]
 
-        if N == 2:
-            return max(nums[0], nums[1])
+        dp = [0] * (N + 1)
+        dp[0] = 0
 
-        def solve(indx, end, dp):
-            if indx > end:
-                return 0
-            
-            if dp[indx] != -1:
-                return dp[indx]
+        for i in range(1, N):
+            steal = nums[i - 1] + (dp[i - 2] if i - 2 >= 0 else 0)
+            skip = dp[i - 1]
 
-            steal = nums[indx] + solve(indx + 2, end, dp)
-            skip = solve(indx + 1, end, dp)
+            dp[i] = max(steal, skip)
 
-            dp[indx] = max(steal, skip)
-            return dp[indx]
+        output1 = dp[N-1]
 
-        dp = [-1] * N
-        firstIndxOutput = solve(0, N - 2, dp)
+        dp = [0] * (N + 1)
+        dp[0] = 0
 
-        dp = [-1] * N
-        secondIndxOutput = solve(1, N - 1, dp)
+        for i in range(2, N+1):
+            steal = nums[i - 1] + (dp[i - 2] if i - 2 >= 0 else 0)
+            skip = dp[i - 1]
 
-        return max(firstIndxOutput, secondIndxOutput)
+            dp[i] = max(steal, skip)
+
+        output2 = dp[N]
+
+        return max(output1, output2)
+
+
+        
