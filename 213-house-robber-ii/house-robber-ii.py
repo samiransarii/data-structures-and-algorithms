@@ -13,6 +13,7 @@ class Solution:
             skip = dp[i - 1]
             dp[i] = max(steal, skip)
 
+        print(dp)
         output1 = dp[N-2]
 
         dp = [0] * N
@@ -23,6 +24,7 @@ class Solution:
             skip = dp[i - 1]
             dp[i] = max(steal, skip)
 
+        print(dp)
         output2 = dp[N-1]
 
         return max(output1, output2)
