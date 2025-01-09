@@ -7,7 +7,7 @@
  * }
  */
 func isBalanced(root *TreeNode) bool {
-    output := true
+    isBalanced := true
 
     var dfs func(node *TreeNode) int
     dfs = func(node *TreeNode) int {
@@ -19,13 +19,15 @@ func isBalanced(root *TreeNode) bool {
         left := 1 + dfs(node.Left)
         right := 1 + dfs(node.Right)
 
+        // If height difference is greater tha 1
+        // set isBalanced to false
         if math.Abs(float64(left) - float64(right)) > 1 {
-            output = false
+            isBalanced = false
         }
 
         return max(left, right)
     }
     
     dfs(root)
-    return output    
+    return isBalanced    
 }
