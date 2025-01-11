@@ -1,39 +1,21 @@
 func longestCommonSubsequence(text1 string, text2 string) int {
-    N1 := len(text1)
-    N2 := len(text2)
-    
-    var dp = make([][]int, N1)
+    M := len(text1) + 1
+    N := len(text2) + 1
+
+    var dp = make([][]int, M)
     for i := range dp {
-        dp[i] = make([]int, N2)
-        for j := range dp[i] {
-            dp[i][j] = -1
+        dp[i] = make([]int, N)
+    }
+
+    for i := 1; i < M; i++ {
+        for j := 1; j < N; j++ {
+            if text1[i-1] == text2[j-1] {
+                dp[i][j] = 1 + dp[i-1][j-1]
+            } else {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+            }
         }
     }
 
-    // Define the recursive function to find LCS
-    var findLCS func(p1 int, p2 int) int
-    findLCS = func(p1 int, p2 int) int {
-        // Base case: if either index is out of bounds
-        if p1 >= N1 || p2 >= N2 {
-            return 0
-        }
-
-        // If characters match, move both pointers forward
-        if dp[p1][p2] != -1 {
-            return dp[p1][p2]
-        }
-
-        // If characters match, move both pointers forward
-        if text1[p1] == text2[p2] {
-            dp[p1][p2] = 1 + findLCS(p1 + 1, p2 + 1)
-            return dp[p1][p2]
-        } else {
-            // Otherwise, try both skipping options
-            dp[p1][p2] = max(findLCS(p1 + 1, p2), findLCS(p1, p2 + 1))
-            return dp[p1][p2]
-        }
-    }
-
-    output := findLCS(0, 0)
-    return output
+    return dp[M - 1][N - 1]
 }
