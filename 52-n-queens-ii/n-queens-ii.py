@@ -19,19 +19,19 @@ class Solution:
             return True
 
         def solve(row, board):
-            nonlocal count
             if row >= n:
-                count += 1
-                return
+                return 1
 
+            total = 0
             for col in range(n):
                 if isValid(row, col, board):
                     board[row][col] = "Q"
-                    solve(row + 1, board)
+                    total += solve(row + 1, board)
                     board[row][col] = "."
+
+            return total
 
 
         board = [["." for _ in range(n)] for _ in range(n)]
-        count = 0
-        solve(0, board)
+        count = solve(0, board)
         return count
