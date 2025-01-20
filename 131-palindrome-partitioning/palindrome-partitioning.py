@@ -9,6 +9,7 @@ class Solution:
         def solve(idx, currpath):
             if idx >= n:
                 output.append(currpath[:])
+                return
             
             for i in range(idx, n):
                 substring = s[idx:i+1]
