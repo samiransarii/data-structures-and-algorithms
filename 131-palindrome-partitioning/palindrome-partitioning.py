@@ -4,12 +4,22 @@ class Solution:
         output = []
         memo = {}
 
-        def isPalindrome(string):
-            if string in memo:
-                return memo[string]
+        def isPalindrome(start, end):
+            if (start, end) in memo:
+                return memo[(start, end)]
 
-            memo[string] = string == string[::-1]
-            return memo[string]
+            left, right = start, end
+            while left <= right:
+                if s[left] != s[right]:
+                    memo[(start, end)] = False
+                    return False
+                left += 1
+                right -= 1
+            
+            memo[(start, end)] = True
+            return True
+            # memo[string] = string == string[::-1]
+            # return memo[string]
 
         def solve(idx, currpath):
             if idx >= n:
@@ -18,7 +28,7 @@ class Solution:
             
             for i in range(idx, n):
                 substring = s[idx:i+1]
-                if isPalindrome(substring):
+                if isPalindrome(idx, i):
                     currpath.append(substring)
                     solve(i + 1, currpath)
                     currpath.pop()
