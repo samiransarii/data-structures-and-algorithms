@@ -2,9 +2,14 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         n = len(s)
         output = []
+        memo = {}
 
         def isPalindrome(string):
-            return string == string[::-1]
+            if string in memo:
+                return memo[string]
+
+            memo[string] = string == string[::-1]
+            return memo[string]
 
         def solve(idx, currpath):
             if idx >= n:
