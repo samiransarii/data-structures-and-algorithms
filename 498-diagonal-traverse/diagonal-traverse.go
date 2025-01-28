@@ -1,4 +1,8 @@
 func findDiagonalOrder(mat [][]int) []int {
+    if mat == nil || len(mat) == 0 {
+        return []int{0}
+    }
+    
     m := len(mat)
     n := len(mat[0])
     output := []int{}
