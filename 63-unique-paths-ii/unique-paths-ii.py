@@ -19,12 +19,11 @@ class Solution:
 
             visited.add((row, col))
 
-            total = findPaths(row + 1, col) + findPaths(row, col + 1)
-            dp[row][col] = total
+            dp[row][col] = findPaths(row + 1, col) + findPaths(row, col + 1)
 
             visited.remove((row, col))
 
-            return total
+            return dp[row][col]
 
         return findPaths(0, 0)
 
