@@ -5,7 +5,6 @@ class Solution {
     void findCombinations(int start, int n, int k) {
         if (curr.size() == k) {
             output.push_back(curr);
-            return;
         }
 
         if (start > n) {
