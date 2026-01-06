@@ -3,11 +3,11 @@ class Solution:
         output = [] 
 
         def findCombinations(i, curr):
-            if i > n + 1:
-                return
-
             if len(curr) == k:
                 output.append(curr.copy())
+                return
+            
+            if i > n:
                 return
 
             curr.append(i)
