@@ -3,7 +3,7 @@ class Solution {
     vector<int> curr;
 
     void findCombinations(int start, int n, int k) {
-        if (k == 0) {
+        if (curr.size() == k) {
             output.push_back(curr);
             return;
         }
@@ -14,7 +14,7 @@ class Solution {
 
         for (int i = start; i <= n; i++) {
             curr.push_back(i);
-            findCombinations(i+1, n, k-1);
+            findCombinations(i+1, n, k);
             curr.pop_back();
         }
     }
