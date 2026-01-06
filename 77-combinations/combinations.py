@@ -10,13 +10,10 @@ class Solution:
             if i > n:
                 return
 
-            curr.append(i)
-
-            findCombinations(i + 1, curr)
-
-            curr.pop()
-
-            findCombinations(i + 1, curr)
+            for i in range(i, n+1):
+                curr.append(i)
+                findCombinations(i+1, curr)
+                curr.pop()
         
         findCombinations(1, [])
         return output
