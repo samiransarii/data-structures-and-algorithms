@@ -12,21 +12,18 @@ class Solution {
             return;
         }
 
-        // Take the candidate at current index
-        curr.push_back(candidates[idx]);
-        currSum += candidates[idx];
+        for (int i = idx; i < candidates.size(); i++) {
+            if (i > idx && candidates[i] == candidates[i-1]) {
+                continue;
+            }
 
-        findCombinations(candidates, target, currSum, idx+1);
+            curr.push_back(candidates[i]);
+            currSum += candidates[i];
+            findCombinations(candidates, target, currSum, i+1);
 
-        // Skip the candidate at current index
-        curr.pop_back();
-        currSum -= candidates[idx];
-
-        while (idx < candidates.size() - 1 && candidates[idx+1] == candidates[idx]) {
-            idx += 1;
+            curr.pop_back();
+            currSum -= candidates[i];
         }
-        
-        findCombinations(candidates, target, currSum, idx+1);
     }
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
