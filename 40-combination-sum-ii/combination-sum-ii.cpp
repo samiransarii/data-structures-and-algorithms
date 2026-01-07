@@ -1,0 +1,38 @@
+class Solution {
+    vector<vector<int>> output;
+    vector<int> curr;
+
+    void findCombinations(vector<int>& candidates, int target, int currSum, int idx) {
+        if (currSum == target) {
+            output.push_back(curr);
+            return;
+        }
+
+        if (currSum > target || idx >= candidates.size()) {
+            return;
+        }
+
+        // Take the candidate at current index
+        curr.push_back(candidates[idx]);
+        currSum += candidates[idx];
+
+        findCombinations(candidates, target, currSum, idx+1);
+
+        // Skip the candidate at current index
+        curr.pop_back();
+        currSum -= candidates[idx];
+
+        while (idx < candidates.size() - 1 && candidates[idx+1] == candidates[idx]) {
+            idx += 1;
+        }
+        
+        findCombinations(candidates, target, currSum, idx+1);
+    }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        findCombinations(candidates, target, 0, 0);
+        
+        return output;
+    }
+};
