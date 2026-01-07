@@ -3,6 +3,8 @@ class Solution {
     vector<int> curr;
 
     void findCombinations(vector<int>& candidates, int target, int currSum, int idx) {
+        std::unordered_set<int> used;
+
         if (currSum == target) {
             output.push_back(curr);
             return;
@@ -13,16 +15,16 @@ class Solution {
         }
 
         for (int i = idx; i < candidates.size(); i++) {
-            if (i > idx && candidates[i] == candidates[i-1]) {
-                continue;
+            if (used.find(candidates[i]) == used.end()) {
+                used.insert(candidates[i]);
+
+                curr.push_back(candidates[i]);
+                currSum += candidates[i];
+                findCombinations(candidates, target, currSum, i+1);
+
+                curr.pop_back();
+                currSum -= candidates[i];
             }
-
-            curr.push_back(candidates[i]);
-            currSum += candidates[i];
-            findCombinations(candidates, target, currSum, i+1);
-
-            curr.pop_back();
-            currSum -= candidates[i];
         }
     }
 public:
