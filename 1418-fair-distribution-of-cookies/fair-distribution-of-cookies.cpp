@@ -26,7 +26,7 @@ class Solution {
 
 public:
     int distributeCookies(vector<int>& cookies, int k) {
-        sort(cookies.begin(), cookies.end());
+        // sort(cookies.begin(), cookies.end());
         int unfairness = INT_MAX;
         vector<int> kids(k, 0);
 
