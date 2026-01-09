@@ -21,6 +21,8 @@ class Solution {
             }
             
             kids[i] -= cookies[idx];
+            // Extra symmetry prune: only try one empty kid at this depth
+            if (kids[i] == 0) break;
         }
     }
 
