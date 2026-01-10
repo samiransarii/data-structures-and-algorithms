@@ -1,9 +1,11 @@
 class Solution {
+public:
+    int maxRequest;
 
-    void findValidRequests(int idx, int count, int& output, vector<vector<int>>& requests, vector<int>& balance) {
+    void findValidRequests(int idx, int count, vector<vector<int>>& requests, vector<int>& balance) {
         // Update the maxRequest if the building are balanced
         if (isBalanced(balance)) {
-            output = max(output, count);
+            maxRequest = max(maxRequest, count);
         }
         
         // All requests validated
@@ -19,7 +21,7 @@ class Solution {
             balance[to] += 1;
             count += 1;
 
-            findValidRequests(i+1, count, output, requests, balance);
+            findValidRequests(i+1, count, requests, balance);
 
             count -= 1;
             balance[from] += 1;
@@ -32,12 +34,12 @@ class Solution {
         return true;
     }
 
-public:
     int maximumRequests(int n, vector<vector<int>>& requests) {
         vector<int> balance(n, 0);
-        int maxRequest = 0;
+        maxRequest = 0;
 
-        findValidRequests(0, 0, maxRequest, requests, balance);
+        findValidRequests(0, 0, requests, balance);
+
         return maxRequest;
     }
 };
